@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Security.Cryptography;
 
 namespace ByteBank
 {
@@ -33,12 +34,75 @@ namespace ByteBank
         static void RegistrarNovoUsuario(List<string> cpfs, List<string> titulares, List<string> senhas, List<double> saldos)
         {
             Console.Write("Cadastre seu cpf: ");
-            cpfs.Add(Console.ReadLine());
+            string salvarCpf = Console.ReadLine();
+
+            if(salvarCpf.Length < 11 || salvarCpf.Length > 11)
+            {
+                Console.WriteLine("CPF Inexistente. Tente novamente");
+                return;
+            }
+          
+                cpfs.Add(salvarCpf);
+            
             Console.Write("Cadastre seu nome: ");
-            titulares.Add(Console.ReadLine());
-            Console.Write("Escolha uma senha: ");
-            senhas.Add(Console.ReadLine());
+            string salvarNome = Console.ReadLine();
+
+            if (salvarNome.Length == 0)
+            {
+                Console.WriteLine("O nome não foi inserido. Tente Novamente.");
+                return;
+            }
+            titulares.Add(salvarNome);
+
+
+
+            Console.Write("crie uma senha: ");
+            string SalvarSenha = GetPassword();
+
+            if (SalvarSenha.Length < 6 )
+            {
+                Console.WriteLine("-----------------");
+                Console.WriteLine("Erro! Crie uma senha com mais de 6 caracteres!");
+                return;
+            }
+            Console.Write("Confirme a senha criada: ");
+            string ConfirmaSenha = GetPassword();
+            if (SalvarSenha != ConfirmaSenha)
+            {
+                Console.WriteLine("As senhas não são iguais");
+                return;
+            }
+            
+                senhas.Add(SalvarSenha);
+            
+           
+           
+
             saldos.Add(0);
+        }
+        static string GetPassword()
+        {
+            var pass = string.Empty;
+            ConsoleKey key;
+            do
+            {
+                var keyInfo = Console.ReadKey(intercept: true);
+                key = keyInfo.Key;
+
+                if (key == ConsoleKey.Backspace && pass.Length > 0)
+                {
+                    Console.Write("\b \b");
+                    pass = pass[0..^1];
+                }
+                else if (!char.IsControl(keyInfo.KeyChar))
+                {
+                    Console.Write("*");
+                    pass += keyInfo.KeyChar;
+                }
+            } while (key != ConsoleKey.Enter);
+
+            Console.WriteLine();
+            return pass;
         }
         static void DeletarUsuario(List<string> cpfs, List<string> titulares, List<double> saldos, List<string> senhas)
         {
@@ -61,6 +125,10 @@ namespace ByteBank
 
         static void ListarTodasAsContas(List<string> cpfs, List<string> titulares, List<double> saldos)
         {
+            if (cpfs.Count == 0)
+            {
+                Console.WriteLine("Não existe nenhuma conta cadastrada no momento.");
+            }
             for (int i = 0; i < cpfs.Count; i++)
             {
                 ApresentaConta(i, cpfs, titulares, saldos);
@@ -94,6 +162,7 @@ namespace ByteBank
 
         static void ApresentaConta(int index, List<string> cpfs, List<string> titulares, List<double> saldos)
         {
+           
             Console.WriteLine($"CPF = {cpfs[index]} | Titular = {titulares[index]} | Saldo = R${saldos[index]:F2}");
         }
 
@@ -116,7 +185,7 @@ namespace ByteBank
                     Console.Write("Digite o valor do depósito: R$");
                     double valorDeposito = double.Parse(Console.ReadLine());
                     Console.Write("Confirme sua senha: ");
-                    string senhaParaDepositar = Console.ReadLine();
+                    string senhaParaDepositar = GetPassword();
                     int indexSenha = senhas.FindIndex(d => d == senhaParaDepositar);
 
                     if (indexSenha == -1)
@@ -139,9 +208,14 @@ namespace ByteBank
             string cpfParatranferir = Console.ReadLine();
             int indexParatranferir = cpfs.FindIndex(cpf => cpf == cpfParatranferir);
 
-            if (indexParatranferir == -1)
+            if (indexParatranferir == -1 )
             {
-                Console.WriteLine("CPF não encontrado/escolha a opção desajada novamente:");
+                Console.WriteLine("CPF não encontrado/escolha a opção desejada novamente:");
+                return;
+            }
+            else if(indexParatranferir == indexParatranferir )
+            {
+                Console.WriteLine("Não é possível tranferir dinheiro para a sua própria conta");
                 return;
             }
             
@@ -152,7 +226,7 @@ namespace ByteBank
             int indexCpf = cpfs.FindIndex(d => d == cpfParaValidar);
 
             Console.Write("Confirme sua senha: ");
-            string senhaParaDepositar = Console.ReadLine();
+            string senhaParaDepositar = GetPassword();
             int indexSenha = senhas.FindIndex(d => d == senhaParaDepositar);
 
 
@@ -181,7 +255,7 @@ namespace ByteBank
             double valorSaque = double.Parse(Console.ReadLine());
 
             Console.Write("Confirme sua senha: ");
-            string senhaParaDepositar = Console.ReadLine();
+            string senhaParaDepositar = GetPassword();
             int indexSenha = senhas.FindIndex(d => d == senhaParaDepositar);
 
             if (indexSenha == -1)
@@ -203,9 +277,9 @@ namespace ByteBank
         static void SaldoConta(List<double> saldos, List<string> senhas, List<string> titulares)
         {
             Console.Write("Confirme sua senha: ");
-            string senhaParaDepositar = Console.ReadLine();
+            string senhaParaDepositar = GetPassword();
             int indexSenha = senhas.FindIndex(d => d == senhaParaDepositar);
-
+            
             if (indexSenha == -1)
             {
                 Console.WriteLine("Senha inválida. Tente novamente.");
@@ -228,6 +302,7 @@ namespace ByteBank
 
             do
             {
+                
                 ShowMenu();
                 option = int.Parse(Console.ReadLine());
 
@@ -261,12 +336,12 @@ namespace ByteBank
                         int indexCpf = cpfs.FindIndex(d => d == cpfParaValidar);
 
                         Console.Write("Digite a senha: ");
-                        string senhaParaDepositar = Console.ReadLine();
+                        string senhaParaDepositar = GetPassword();
                         int indexSenha = senhas.FindIndex(d => d == senhaParaDepositar);
                         
 
 
-                        if (indexSenha == -1 && indexCpf == -1)
+                        if (indexSenha == -1 || indexCpf == -1)
                         {
                             Console.WriteLine("CPF não encontrado ou senha inválida. Tente novamente.");
                            
