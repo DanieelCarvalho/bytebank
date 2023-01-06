@@ -1,4 +1,8 @@
 # bytebank
 
 
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/104596788/211052262-40430856-baab-4eb4-a098-7192905ce6e1.gif)
+
+
+
+https://user-images.githubusercontent.com/104596788/211052578-856e8fb5-3ff8-4d77-9869-3429c28f4a27.mp4
+
