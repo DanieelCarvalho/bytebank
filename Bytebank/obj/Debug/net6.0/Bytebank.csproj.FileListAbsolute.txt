@@ -13,3 +13,6 @@ C:\Users\calda\Documents\Sharp codes\Bytebank\Bytebank\obj\Debug\net6.0\refint\B
 C:\Users\calda\Documents\Sharp codes\Bytebank\Bytebank\obj\Debug\net6.0\Bytebank.pdb
 C:\Users\calda\Documents\Sharp codes\Bytebank\Bytebank\obj\Debug\net6.0\Bytebank.genruntimeconfig.cache
 C:\Users\calda\Documents\Sharp codes\Bytebank\Bytebank\obj\Debug\net6.0\ref\Bytebank.dll
+C:\Users\calda\Documents\Sharp codes\Bytebank\Bytebank\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+C:\Users\calda\Documents\Sharp codes\Bytebank\Bytebank\bin\Debug\net6.0\System.IO.Packaging.dll
+C:\Users\calda\Documents\Sharp codes\Bytebank\Bytebank\obj\Debug\net6.0\Bytebank.csproj.CopyComplete
