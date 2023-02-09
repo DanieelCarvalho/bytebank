@@ -18,12 +18,17 @@ public  class  Conta
         Saldo = 0.0;
         EstaBloquada = false;
     }
-
- 
-
-    public void Depositar(double quantia)
+    public Conta()
     {
-         Saldo += quantia;
+
+    }
+
+
+
+    public void Depositar(double quantia, Conta contaDestinhoDeposito)
+    {
+         contaDestinhoDeposito.Saldo += quantia;
+        
  
     }
     public void  Sacar(double quantia)
@@ -35,8 +40,9 @@ public  class  Conta
 
         Sacar(quantia);
 
-       contaDestino.Depositar(quantia);
+       contaDestino.Depositar(quantia, contaDestino);
     }
+
 
 
 
