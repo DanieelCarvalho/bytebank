@@ -23,30 +23,30 @@ public class MenuCrontrole
             switch (opcao)
             {
                 case 1:
-                   
-                    contaService.Register();
-                    Console.Clear();
-                    break;
-                case 6:
                     LoginFormDto user = View.ContaView.MenuLoginForm();
                     contaService.Login(user);
                     Console.Clear();
                     do
-                    {                      
-                      
+                    {
+
                         View.MenuUsuarioView.MenuUsuario();
                         opcao2 = int.Parse(Console.ReadLine());
                         Console.Clear();
                         switch (opcao2)
                         {
                             case 1:
-                                contaService.Depositar();     
+                                contaService.Depositar();
+                                Console.Clear();
                                 break;
                             case 2:
                                 contaService.Tranferir();
+                                Console.Clear();
+
                                 break;
                             case 3:
                                 contaService.Sacar();
+                                Console.Clear();
+
                                 break;
                             case 4:
                                 contaService.Saldo();
@@ -62,15 +62,23 @@ public class MenuCrontrole
                                 } while (retorno != 0);
 
                                 break;
-                            
                         }
-                        
 
                     } while (opcao2 != 0);
                     break;
-
                 case 2:
+                    contaService.Register();
+                    Console.Clear();
                     break;
+                case 3:
+                   
+                   
+                    break;
+                case 6:
+                   
+                    break;
+
+               
             }
     
         }while (opcao != 0);

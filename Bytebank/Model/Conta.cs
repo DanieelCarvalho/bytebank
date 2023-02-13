@@ -1,5 +1,4 @@
 ﻿namespace Bytebank.Model.Entities;
-
 public  class  Conta
 {
     public string Nome { get; set; }
@@ -23,8 +22,6 @@ public  class  Conta
 
     }
 
-
-
     public void Depositar(double quantia, Conta contaDestinhoDeposito)
     {
          contaDestinhoDeposito.Saldo += quantia;
@@ -42,8 +39,5 @@ public  class  Conta
 
        contaDestino.Depositar(quantia, contaDestino);
     }
-
-
-
 
 }

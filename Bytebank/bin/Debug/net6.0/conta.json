@@ -1,0 +1,10 @@
+[
+  {
+    "Nome": "casa",
+    "Id": 1,
+    "Cpf": "a",
+    "Senha": "a",
+    "Saldo": 0,
+    "EstaBloquada": false
+  }
+]

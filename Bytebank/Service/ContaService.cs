@@ -1,36 +1,35 @@
 ﻿using Bytebank.Excepitions;
 using Bytebank.Model.DTO;
 using Bytebank.Model.Entities;
+using Bytebank.Repository;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 
 namespace Bytebank.Service
 {
     public class ContaService
     {
-        private List<Conta> _contas;
+        public static List<Conta> _contas;
 
         private Conta? _contaLogada;
         public bool _isContaLogada{
             get{ return _contaLogada != null; }
         }
-       
-
+      
         public ContaService()
         {
             _contas = new List<Conta>()
             {
-                new Conta("Daniel", 1L, "123", "123"),
-                new Conta("Thami", 2L, "1234", "1234")
-
+         
 
             };
-            _contaLogada = null;
-            
+            _contaLogada = null;    
         }
 
+        
         public void Depositar()
         {
-           
              if (!_isContaLogada)
                throw new ContaNaoLogadaExcption("Você precisa fazer login ou se registar antes");
          
@@ -48,6 +47,14 @@ namespace Bytebank.Service
 
 
             _contaLogada.Depositar(amount, contaDestinhoDeposito);
+        }
+        public void ListarTodasAsContas()
+        {
+            foreach (var elemento in _contas)
+            {
+                Console.WriteLine($"CPF: {elemento.Cpf} || Titular: {elemento.Nome}  || Saldo {elemento.Saldo}");
+            }
+
         }
 
         public void Tranferir()
@@ -113,13 +120,17 @@ namespace Bytebank.Service
             long id = _contas.Count + 1;
             var teste = new Conta(nome, id, cpf, senha);
             _contas.Add(teste);
-                Console.WriteLine(_contas.Count);
-           
+            ContaRepository arrumar = new ContaRepository();
+           // arrumar.SalvarTodos(_contas);
+            ContaRepository.SerializarJson( arrumar.arquivoJson);
+            
+
 
         }
         public  void Login(LoginFormDto loginForm)
         {
-        
+     
+
             if (IsContaExists(loginForm.Cpf))     
               
             if (!IsPasswordMatch(loginForm))
@@ -129,7 +140,18 @@ namespace Bytebank.Service
             if (contaTologin.EstaBloquada)
                throw new ContaInativaExcepition("Está conta não está autorizada");
             _contaLogada = contaTologin;
+            ContaRepository pegarArquivo = new ContaRepository();
             
+           
+        }
+        public void DeletarUsuario()
+        {
+            Console.Write("Digite o cpf: ");
+            string cpfParaDeletar = Console.ReadLine();
+ 
+            var deletarConta = _contas.Find(c => c.Cpf.Equals(cpfParaDeletar));
+            _contas.Remove(deletarConta);
+
 
         }
         public void Logout()
@@ -149,10 +171,11 @@ namespace Bytebank.Service
         public  Conta ToConta(string cpf)
         {
             var conta = _contas.Find(c => c.Cpf.Equals(cpf));
+            
            
             if (conta == null)
                 throw new ContaInexistenteExceptions("Conta não identificada.");
-            Console.WriteLine(conta.Saldo);
+           // Console.WriteLine(conta.Saldo);
             return conta;
         }
 
@@ -160,7 +183,6 @@ namespace Bytebank.Service
         {
             return _contaLogada.Saldo >= amount;
         }
-
-      
     }
+
 }

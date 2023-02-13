@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Model\Entities\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
   <ItemGroup>
