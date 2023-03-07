@@ -7,10 +7,10 @@ public  class ContaView
     public static LoginFormDto MenuLoginForm()
     {
 
-        Console.WriteLine("Faça seu login ");
-        Console.Write("Cpf: ");
+        Console.WriteLine(Login);
+        Console.Write("Digite seu Cpf: ");
         string cpf = Console.ReadLine();
-        Console.Write("Senha: ");
+        Console.Write("Digite sua Senha: ");
         string senha = Console.ReadLine();
         return new LoginFormDto
         {
@@ -20,6 +20,16 @@ public  class ContaView
         };
        
     }
+    public static string Login = @"
+  ______                        _             _           
+ |  ____|                      | |           (_)        _ 
+ | |__ __ _  ___ __ _    ___   | | ___   __ _ _ _ __   (_)
+ |  __/ _` |/ __/ _` |  / _ \  | |/ _ \ / _` | | '_ \     
+ | | | (_| | (_| (_| | | (_) | | | (_) | (_| | | | | |  _ 
+ |_|  \__,_|\___\__,_|  \___/  |_|\___/ \__, |_|_| |_| (_)
+             )_)                         __/ |            
+                                        |___/             
+";
 
 }
 

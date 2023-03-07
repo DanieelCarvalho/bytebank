@@ -98,11 +98,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\calda\\Documents\\Sharp codes\\Bytebank\\Bytebank\\Bytebank.csproj",
+      "projectUniqueName": "C:\\Users\\calda\\Documents\\Dev\\Sharp codes\\Bytebank\\Bytebank\\Bytebank.csproj",
       "projectName": "Bytebank",
-      "projectPath": "C:\\Users\\calda\\Documents\\Sharp codes\\Bytebank\\Bytebank\\Bytebank.csproj",
+      "projectPath": "C:\\Users\\calda\\Documents\\Dev\\Sharp codes\\Bytebank\\Bytebank\\Bytebank.csproj",
       "packagesPath": "C:\\Users\\calda\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\calda\\Documents\\Sharp codes\\Bytebank\\Bytebank\\obj\\",
+      "outputPath": "C:\\Users\\calda\\Documents\\Dev\\Sharp codes\\Bytebank\\Bytebank\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

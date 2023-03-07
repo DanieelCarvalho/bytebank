@@ -1,16 +1,18 @@
 ﻿using Bytebank.Model.DTO;
+using Bytebank.Model.Entities;
 using Bytebank.Service;
 namespace Bytebank.Controllers;
 
 public class MenuCrontrole
 {
     
-    public static void MenuControle()
+    public static void MenuControle(ContaService service)
     {
         int opcao = 0;
         int opcao2 = 0;
         int retorno = 0;
-        ContaService contaService = new ContaService();
+        // ContaService contaService = new ContaService();
+
 
         do
         {
@@ -24,32 +26,32 @@ public class MenuCrontrole
             {
                 case 1:
                     LoginFormDto user = View.ContaView.MenuLoginForm();
-                    contaService.Login(user);
+                    Conta nome = new Conta();
+                    service.Login(user);
                     Console.Clear();
                     do
                     {
-
-                        View.MenuUsuarioView.MenuUsuario();
+                        View.MenuUsuarioView.MenuUsuario(service._contaLogada.Nome);
                         opcao2 = int.Parse(Console.ReadLine());
                         Console.Clear();
                         switch (opcao2)
                         {
                             case 1:
-                                contaService.Depositar();
+                                service.Depositar();
                                 Console.Clear();
                                 break;
                             case 2:
-                                contaService.Tranferir();
+                                service.Tranferir();
                                 Console.Clear();
 
                                 break;
                             case 3:
-                                contaService.Sacar();
+                                service.Sacar();
                                 Console.Clear();
 
                                 break;
                             case 4:
-                                contaService.Saldo();
+                                service.Saldo();
                                 Console.Clear();
                                 do
                                 {
@@ -67,7 +69,7 @@ public class MenuCrontrole
                     } while (opcao2 != 0);
                     break;
                 case 2:
-                    contaService.Register();
+                    service.Register();
                     Console.Clear();
                     break;
                 case 3:

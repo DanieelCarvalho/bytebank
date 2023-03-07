@@ -2,10 +2,10 @@
 public  class  Conta
 {
     public string Nome { get; set; }
-    public  long Id { get; private set; }
-    public string Cpf { get; private set; } = null!;
-    public string Senha { get; private set; } = null!;
-    public double Saldo { get; private set; }
+    public  long Id { get;  set; }
+    public string Cpf { get;  set; } = null!;
+    public string Senha { get;  set; } = null!;
+    public double Saldo { get;  set; }
     public bool EstaBloquada { get; protected set; }
 
     public Conta( string nome, long id, string cpf, string senha)

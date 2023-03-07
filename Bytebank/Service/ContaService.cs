@@ -2,8 +2,8 @@
 using Bytebank.Model.DTO;
 using Bytebank.Model.Entities;
 using Bytebank.Repository;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Bytebank.View;
+
 
 
 namespace Bytebank.Service
@@ -12,7 +12,7 @@ namespace Bytebank.Service
     {
         public static List<Conta> _contas;
 
-        private Conta? _contaLogada;
+        public Conta? _contaLogada;
         public bool _isContaLogada{
             get{ return _contaLogada != null; }
         }
@@ -111,6 +111,7 @@ namespace Bytebank.Service
         public void Register()
         {
             // TODO apresentar menu de registro 
+            Console.WriteLine(MenuView.FacaSuaConta);
             Console.WriteLine("Digite seu nome: ");
             string nome = Console.ReadLine();
             Console.WriteLine("Digite seu CPF: ");
@@ -123,8 +124,7 @@ namespace Bytebank.Service
             ContaRepository arrumar = new ContaRepository();
            // arrumar.SalvarTodos(_contas);
             ContaRepository.SerializarJson( arrumar.arquivoJson);
-            
-
+ 
 
         }
         public  void Login(LoginFormDto loginForm)
@@ -140,7 +140,8 @@ namespace Bytebank.Service
             if (contaTologin.EstaBloquada)
                throw new ContaInativaExcepition("Está conta não está autorizada");
             _contaLogada = contaTologin;
-            ContaRepository pegarArquivo = new ContaRepository();
+          
+
             
            
         }
@@ -167,7 +168,11 @@ namespace Bytebank.Service
             var conta = _contas.Find(c => c.Cpf.Equals(loginForm.Cpf));
             return conta.Senha.Equals(loginForm.Senha);
         }
-     
+        public Conta Nome(string cpf)
+        {
+            var conta = _contas.Find(c => c.Cpf.Equals(cpf));
+            return conta;
+        }
         public  Conta ToConta(string cpf)
         {
             var conta = _contas.Find(c => c.Cpf.Equals(cpf));
